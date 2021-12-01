@@ -8,13 +8,23 @@ on:
       isApplication:
         required: false
         type: boolean
+      fullCheckout:
+        required: false
+        type: boolean
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
+        if: ${{ !inputs.fullCheckout }}
         uses: actions/checkout@v2
+
+      - name: Checkout (full)
+        if: ${{ inputs.fullCheckout }}
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Set up JDK
         uses: actions/setup-java@v2

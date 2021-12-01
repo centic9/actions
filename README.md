@@ -10,12 +10,6 @@ Performs checkout, build and test of a Gradle based project.
       build-and-test:
         uses: centic9/actions/.github/workflows/gradle-build.yml@3
 
-It can also call `installDist` via the following
-
-        uses: centic9/actions/.github/workflows/gradle-build.yml@3
-        with:
-          isApplication: true
-
 A sample full workflow file is as follows
 
     # This workflow will perform a build of the project and run tests
@@ -33,6 +27,18 @@ A sample full workflow file is as follows
     jobs:
       build-and-test:
         uses: centic9/actions/.github/workflows/gradle-build.yml@3
+
+It can also call `installDist` via the following
+
+        uses: centic9/actions/.github/workflows/gradle-build.yml@3
+        with:
+          isApplication: true
+
+If you require a full git-checkout, you can use
+
+        uses: centic9/actions/.github/workflows/gradle-build.yml@3
+        with:
+          fullCheckout: true
 
 # License
 
