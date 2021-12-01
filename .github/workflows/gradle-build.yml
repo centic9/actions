@@ -1,0 +1,62 @@
+# default reusable workflow for building/testing a Gradle project
+# 
+# See https://docs.github.com/en/actions/learn-github-actions/reusing-workflows
+# 
+on: 
+  workflow_call:
+    inputs:
+      isApplication:
+        required: false
+        type: boolean
+
+jobs:
+  checkout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Gradle wrapper and dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+            ~/source
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: Verify Gradle wrapper
+        uses: gradle/wrapper-validation-action@v1
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Clean fully
+        run: rm -rf build
+
+      - name: Clean with Gradle
+        run: ./gradlew clean
+
+      - name: Build the project
+        run: ./gradlew build
+
+  buildApplication:
+    if: ${{ inputs.isApplication }}
+    steps:
+      - name: Build the application binaries
+        run: ./gradlew installDist
+   
+  test:
+    if: ${{ isApplication }}
+    steps:
+      - name: Run unit-tests
+        run: ./gradlew check
