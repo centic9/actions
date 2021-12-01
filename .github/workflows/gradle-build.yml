@@ -1,8 +1,8 @@
 # default reusable workflow for building/testing a Gradle project
-# 
+#
 # See https://docs.github.com/en/actions/learn-github-actions/reusing-workflows
-# 
-on: 
+#
+on:
   workflow_call:
     inputs:
       isApplication:
@@ -53,3 +53,11 @@ jobs:
 
       - name: Run unit-tests
         run: ./gradlew check
+
+      - name: Publish unit-test results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: always()
+        with:
+          files: |
+            build/test-results/**/*.xml
+            */build/test-results/**/*.xml
