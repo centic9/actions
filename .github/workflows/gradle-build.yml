@@ -55,7 +55,7 @@ jobs:
         run: ./gradlew clean
 
       - name: Build the project
-        run: ./gradlew build -x signArchives
+        run: ./gradlew build
 
       - name: Build the application binaries
         if: ${{ inputs.isApplication }}
