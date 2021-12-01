@@ -10,7 +10,7 @@ on:
         type: boolean
 
 jobs:
-  checkout:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -22,9 +22,6 @@ jobs:
           distribution: 'adopt'
           java-version: '11'
 
-  build:
-    runs-on: ubuntu-latest
-    steps:
       - name: Cache Gradle wrapper and dependencies
         uses: actions/cache@v2
         with:
@@ -50,15 +47,9 @@ jobs:
       - name: Build the project
         run: ./gradlew build
 
-  buildApplication:
-    runs-on: ubuntu-latest
-    if: ${{ inputs.isApplication }}
-    steps:
       - name: Build the application binaries
+        if: ${{ inputs.isApplication }}
         run: ./gradlew installDist
-   
-  test:
-    runs-on: ubuntu-latest
-    steps:
+
       - name: Run unit-tests
         run: ./gradlew check
