@@ -16,6 +16,24 @@ It can also call `installDist` via the following
         with:
           isApplication: true
 
+A sample full workflow file is as follows
+
+    # This workflow will perform a build of the project and run tests
+
+    name: Build and check
+
+    on:
+      push:
+        branches: [ master ]
+      pull_request:
+        branches: [ master ]
+      # Allows to run from the Actions tab
+      workflow_dispatch:
+
+    jobs:
+      build-and-test:
+        uses: centic9/actions/.github/workflows/gradle-build.yml@3
+
 # License
 
 These scripts are licensed under the [BSD 2-Clause License].
