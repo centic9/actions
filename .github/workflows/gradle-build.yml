@@ -13,7 +13,8 @@ jobs:
   checkout:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
       - name: Set up JDK
         uses: actions/setup-java@v2
@@ -50,13 +51,14 @@ jobs:
         run: ./gradlew build
 
   buildApplication:
+    runs-on: ubuntu-latest
     if: ${{ inputs.isApplication }}
     steps:
       - name: Build the application binaries
         run: ./gradlew installDist
    
   test:
-    if: ${{ isApplication }}
+    runs-on: ubuntu-latest
     steps:
       - name: Run unit-tests
         run: ./gradlew check
