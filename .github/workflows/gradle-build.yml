@@ -25,6 +25,9 @@ on:
       fullCheckout:
         required: false
         type: boolean
+      addPackage:
+        required: false
+        type: string
 
 jobs:
   build-and-test:
