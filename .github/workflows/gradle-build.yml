@@ -56,7 +56,7 @@ jobs:
           java-version: '${{ matrix.jdk }}'
 
       - name: Add additional packages (if configured)
-        if: github.event.inputs.addPackage != ''
+        if: ${{ inputs.addPackage != '' }}
         run: sudo apt-get install -y ${{ inputs.addPackage }}
 
       - name: Cache Gradle wrapper and dependencies
