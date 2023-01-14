@@ -28,6 +28,9 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
     strategy:
+      # For documentation of matrix-builds see
+      # https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
+      fail-fast: false
       matrix:
         jdk: [11, 17]
     steps:
