@@ -2,6 +2,18 @@
 #
 # See https://docs.github.com/en/actions/learn-github-actions/reusing-workflows
 #
+# Supported inputs
+# * fullCheckout: boolean, fetches sources with depth=0 by default,
+#   but allows to fetch the full repository if necessary for a build
+# * isApplication: boolean, if specified, also builds Gradle "installDist"
+#
+# The following steps are included:
+# * Check out the code from git, either "bare" or "full"
+# * Setting up JDK 11 and 17 via matrix-builds
+# * Building the project via target "build"
+# * Testing the project via target "check"
+# * Publish unit-test results via action "publish-unit-test-result-action"
+
 on:
   workflow_call:
     inputs:
@@ -15,6 +27,9 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        jdk: [11, 17]
     steps:
       - name: Checkout
         if: ${{ !inputs.fullCheckout }}
@@ -30,7 +45,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
-          java-version: '11'
+          java-version: '${{ matrix.jdk }}'
 
       - name: Cache Gradle wrapper and dependencies
         uses: actions/cache@v2
