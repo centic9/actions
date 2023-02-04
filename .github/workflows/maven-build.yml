@@ -1,0 +1,70 @@
+# default reusable workflow for building/testing a Maven project
+#
+# See https://docs.github.com/en/actions/learn-github-actions/reusing-workflows
+#
+# Supported inputs
+# * fullCheckout: boolean, fetches sources with depth=0 by default,
+#   but allows to fetch the full repository if necessary for a build
+# * addPackage: string, if specified, installs the given Debian/Ubuntu packages via "apt-get"
+#
+# The following steps are included:
+# * Check out the code from git, either "bare" or "full"
+# * Setting up JDK 11 and 17 via matrix-builds
+# * Installing additional Debian/Ubuntu packages if specified
+# * Building the project via target "build"
+# * Testing the project via target "check"
+# * Publish unit-test results via action "publish-unit-test-result-action"
+
+on:
+  workflow_call:
+    inputs:
+      fullCheckout:
+        required: false
+        type: boolean
+      addPackage:
+        required: false
+        type: string
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      # For documentation of matrix-builds see
+      # https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
+      fail-fast: false
+      matrix:
+        jdk: [11, 17]
+    steps:
+      - name: Checkout
+        if: ${{ !inputs.fullCheckout }}
+        uses: actions/checkout@v2
+
+      - name: Checkout (full)
+        if: ${{ inputs.fullCheckout }}
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '${{ matrix.jdk }}'
+
+      - name: Add additional packages (if configured)
+        if: ${{ inputs.addPackage != '' }}
+        run: sudo apt-get install -y ${{ inputs.addPackage }}
+
+      - name: Build with Maven
+        run: mvn --batch-mode --update-snapshots package
+
+      - name: Validate with Maven
+        run: mvn --batch-mode --update-snapshots validate
+
+      - name: Publish unit-test results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: always()
+        with:
+          files: |
+            target/surefire-reports/**/*.xml
+            */target/surefire-reports/**/*.xml
