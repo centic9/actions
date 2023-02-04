@@ -6,12 +6,15 @@ Currently the following workflows are provided:
 
 Performs checkout, build and test of a Gradle based project.
 
+```yaml
     jobs:
       build-and-test:
         uses: centic9/actions/.github/workflows/gradle-build.yml@3
+```
 
 A sample full workflow file is as follows
 
+```yaml
     # This workflow will perform a build of the project and run tests
 
     name: Build and check
@@ -26,19 +29,78 @@ A sample full workflow file is as follows
 
     jobs:
       build-and-test:
-        uses: centic9/actions/.github/workflows/gradle-build.yml@3
+        uses: centic9/actions/.github/workflows/gradle-build.yml@5
+```
 
 It can also call `installDist` via the following
 
-        uses: centic9/actions/.github/workflows/gradle-build.yml@3
+```yaml
+        uses: centic9/actions/.github/workflows/gradle-build.yml@5
         with:
           isApplication: true
+```
 
 If you require a full git-checkout, you can use
 
-        uses: centic9/actions/.github/workflows/gradle-build.yml@3
+```yaml
+        uses: centic9/actions/.github/workflows/gradle-build.yml@5
         with:
           fullCheckout: true
+```
+
+If additional Ubuntu/Debian packages are required, use the following
+
+```yaml
+        uses: centic9/actions/.github/workflows/gradle-build.yml@5
+        with:
+          addPackage: libfuse2
+```
+
+# maven-build.yml
+
+Performs checkout, build and test of a Maven based project.
+
+```yaml
+    jobs:
+      build-and-test:
+        uses: centic9/actions/.github/workflows/gradle-build.yml@3
+```
+
+A sample full workflow file is as follows
+
+```yaml
+# This workflow will perform a build of the project and run tests
+
+name: Build and check
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  # Allows to run from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    uses: centic9/actions/.github/workflows/maven-build.yml@5
+```
+
+If you require a full git-checkout, you can use
+
+```yaml
+        uses: centic9/actions/.github/workflows/maven-build.yml@5
+        with:
+          fullCheckout: true
+```
+
+If additional Ubuntu/Debian packages are required, use the following
+
+```yaml
+        uses: centic9/actions/.github/workflows/maven-build.yml@5
+        with:
+          addPackage: libfuse2
+```
 
 # License
 
