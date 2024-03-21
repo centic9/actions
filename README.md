@@ -2,6 +2,10 @@ This is a repository of reusable Github workflows
 
 Currently the following workflows are provided:
 
+# Necessary permissions
+
+See [EnricoMi/publish-unit-test-result-action/#permissions](https://github.com/EnricoMi/publish-unit-test-result-action/?tab=readme-ov-file#permissions)
+
 # gradle-build.yml
 
 Performs checkout, build and test of a Gradle based project.
