@@ -2,6 +2,15 @@ This is a repository of reusable Github workflows
 
 Currently the following workflows are provided:
 
+# Used actions
+
+The following actions are used currently
+* [actions/checkout](https://github.com/actions/checkout/)
+* [actions/setup-java](https://github.com/actions/setup-java/)
+* [actions/cache](https://github.com/actions/cache/)
+* [gradle/wrapper-validation-action](https://github.com/gradle/wrapper-validation-action/)
+* [EnricoMi/publish-unit-test-result-action](https://github.com/EnricoMi/publish-unit-test-result-action/)
+
 # Necessary permissions
 
 See [EnricoMi/publish-unit-test-result-action/#permissions](https://github.com/EnricoMi/publish-unit-test-result-action/?tab=readme-ov-file#permissions)
