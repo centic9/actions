@@ -10,7 +10,7 @@
 #
 # The following steps are included:
 # * Check out the code from git, either "bare" or "full"
-# * Setting up JDK 11 and 17 via matrix-builds
+# * Setting up JDK 17 and 21 via matrix-builds
 # * Installing additional Debian/Ubuntu packages if specified
 # * Building the project via target "build"
 # * Testing the project via target "check"
@@ -37,7 +37,7 @@ jobs:
       # https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
       fail-fast: false
       matrix:
-        jdk: [11, 17, 21]
+        jdk: [17, 21]
     steps:
       - name: Checkout
         if: ${{ !inputs.fullCheckout }}
