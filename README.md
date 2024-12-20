@@ -8,7 +8,7 @@ The following actions are used currently
 * [actions/checkout](https://github.com/actions/checkout/)
 * [actions/setup-java](https://github.com/actions/setup-java/)
 * [actions/cache](https://github.com/actions/cache/)
-* [gradle/wrapper-validation-action](https://github.com/gradle/wrapper-validation-action/)
+* [gradle/actions/wrapper-validation](https://github.com/gradle/actions/tree/main/wrapper-validation)
 * [EnricoMi/publish-unit-test-result-action](https://github.com/EnricoMi/publish-unit-test-result-action/)
 
 # Necessary permissions
