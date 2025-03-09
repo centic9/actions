@@ -60,7 +60,7 @@ jobs:
         run: sudo apt-get install -y ${{ inputs.addPackage }}
 
       - name: Cache Gradle wrapper and dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: |
             ~/.gradle/caches
