@@ -1,0 +1,40 @@
+name: Build And Push Debian Packages
+run-name: Build and push Debian Packages
+on:
+  workflow_call:
+
+jobs:
+  build-debs:
+    name: build-debs
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # , bullseye
+        codename: [sid, trixie, bookworm]
+        # , arm64, armhf
+        #arch: [amd64]
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: install sbuild
+        run: sudo apt install -y sbuild mmdebstrap uidmap piuparts
+
+      - name: create directories
+        run: mkdir -p ~/.cache/sbuild ~/.config/sbuild
+
+      #   - name: Create configuration file for pbuilder
+      #     template:
+      #       src: files/sbuild-config.pl
+      #       dest: "{{ config_dir }}/config.pl"
+
+      - name: create chroot tarball
+        run: sudo mmdebstrap --include=ca-certificates --skip=output/dev --variant=buildd ${{ matrix.codename }} ~/.cache/sbuild/${{ matrix.codename }}-amd64.tar.zst https://deb.debian.org/debian
+
+      - name: save artifact
+        # https://github.com/actions/upload-artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.codename }}
+          path: debian/artifacts/
