@@ -19,7 +19,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: install sbuild
-        run: sudo apt install -y sbuild mmdebstrap uidmap piuparts
+        # piuparts
+        run: sudo apt install -y sbuild mmdebstrap uidmap
 
       - name: create directories
         run: mkdir -p ~/.cache/sbuild ~/.config/sbuild
