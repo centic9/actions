@@ -19,6 +19,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: build
+        # https://github.com/jtdor/build-deb-action
         uses: jtdor/build-deb-action@v1
         env:
           DEB_BUILD_OPTIONS: noautodbgsym
@@ -30,6 +31,7 @@ jobs:
           host-arch: ${{ matrix.arch }}
 
       - name: save artifact
+        # https://github.com/actions/upload-artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.codename }}
