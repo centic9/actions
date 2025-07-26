@@ -10,8 +10,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # , bullseye
-        codename: [sid, trixie, bookworm]
+        # sid, bullseye
+        codename: [trixie, bookworm]
         # , arm64, armhf
         #arch: [amd64]
     steps:
@@ -25,13 +25,16 @@ jobs:
       - name: create directories
         run: mkdir -p ~/.cache/sbuild ~/.config/sbuild
 
+      - name: Fetch repository-key
+        run: wget -O ~/${{ matrix.codename }}.asc https://ftp-master.debian.org/keys/archive-key-${{ (startsWith(matrix.codename, 'bookworm') && '12') || '13' }}.asc
+
       #   - name: Create configuration file for pbuilder
       #     template:
       #       src: files/sbuild-config.pl
       #       dest: "{{ config_dir }}/config.pl"
 
       - name: create chroot tarball
-        run: sudo mmdebstrap --include=ca-certificates --skip=output/dev --variant=buildd ${{ matrix.codename }} ~/.cache/sbuild/${{ matrix.codename }}-amd64.tar.zst https://deb.debian.org/debian
+        run: sudo mmdebstrap --include=ca-certificates --skip=output/dev --variant=buildd ${{ matrix.codename }} ~/.cache/sbuild/${{ matrix.codename }}-amd64.tar.zst "deb [signed-by=~/${{ matrix.codename }}.asc] https://deb.debian.org/debian"
 
       - name: save artifact
         # https://github.com/actions/upload-artifact
