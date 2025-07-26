@@ -26,8 +26,8 @@ jobs:
         with:
           docker-image: "debian:${{ matrix.codename }}-slim"
           buildpackage-opts: --build=full
-#          extra-build-deps: git pristine-tar
-#          before-build-hook: pristine-tar checkout ../$(pristine-tar list | sort | tail -n 1)
+          extra-build-deps: git pristine-tar
+          before-build-hook: pristine-tar checkout ../$(pristine-tar list | sort | tail -n 1)
           host-arch: ${{ matrix.arch }}
 
       - name: save artifact
