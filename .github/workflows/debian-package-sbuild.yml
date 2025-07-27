@@ -20,7 +20,7 @@ jobs:
 
       - name: install sbuild
         # piuparts
-        run: sudo apt install -y sbuild mmdebstrap uidmap
+        run: sudo apt install -y sbuild mmdebstrap uidmap debhelper
 
       - name: create directories
         run: mkdir -p ~/.cache/sbuild ~/.config/sbuild
