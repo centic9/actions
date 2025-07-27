@@ -34,7 +34,7 @@ jobs:
       #       dest: "{{ config_dir }}/config.pl"
 
       - name: create chroot tarball
-        run: sudo mmdebstrap --include=ca-certificates --skip=output/dev --variant=buildd ${{ matrix.codename }} ~/.cache/sbuild/${{ matrix.codename }}-amd64.tar.zst "deb [signed-by=~/${{ matrix.codename }}.asc] https://deb.debian.org/debian"
+        run: sudo mmdebstrap --include=ca-certificates --skip=output/dev --variant=buildd ${{ matrix.codename }} ~/.cache/sbuild/${{ matrix.codename }}-amd64.tar.zst "deb [signed-by=~/${{ matrix.codename }}.asc] https://deb.debian.org/debian trixie main non-free contrib non-free-firmware"
 
       - name: save artifact
         # https://github.com/actions/upload-artifact
