@@ -29,6 +29,12 @@ jobs:
         working-directory: /tmp/debcraft
         run: make install-local
 
+      # this is needed when running debcraft as root
+      - name: make files owned by root for debcraft to work
+        run: 'sudo chown -R root: .'
+
+      # a freshly installed podman would require a logout/login, so we need to use sudo for now
+      # we should get rid of it though to avoid other issues
       - name: run build
         run: sudo $HOME/.local/bin/debcraft build --distribution ${{ matrix.codename }}
 
