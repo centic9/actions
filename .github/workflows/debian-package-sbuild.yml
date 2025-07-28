@@ -1,5 +1,5 @@
-name: Build And Push Debian Packages
-run-name: Build and push Debian Packages
+name: Build Debian Packages
+run-name: Build Debian Packages
 on:
   workflow_call:
 

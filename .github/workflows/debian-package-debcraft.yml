@@ -1,0 +1,40 @@
+name: Build Debian Packages with Debcraft
+run-name: Build Debian Packages with Debcraft
+on:
+  workflow_call:
+
+jobs:
+  build-debs:
+    name: build-debs
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # , bullseye
+        codename: [sid, trixie, bookworm]
+        # , arm64, armhf
+        arch: [amd64]
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: install required software
+        run: sudo apt install -y git make podman
+
+      - name: fetch debcraft
+        working-directory: /tmp
+        run: git clone https://github.com/ottok/debcraft.git
+
+      - name: install debcraft
+        working-directory: /tmp/debcraft
+        run: make install-local
+
+      - name: run build
+        run: sudo $HOME/.local/bin/debcraft build --distribution ${{ matrix.codename }}
+
+      - name: save artifact
+        # https://github.com/actions/upload-artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.codename }}
+          path: /tmp/debcraft-build-mtools-*/
