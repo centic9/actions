@@ -37,16 +37,16 @@ jobs:
     steps:
       - name: Checkout
         if: ${{ !inputs.fullCheckout }}
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Checkout (full)
         if: ${{ inputs.fullCheckout }}
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
       - name: Set up JDK
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: 'adopt'
           java-version: '${{ matrix.jdk }}'

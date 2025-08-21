@@ -16,7 +16,7 @@ jobs:
         arch: [amd64]
     steps:
       - name: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: build
         # https://github.com/jtdor/build-deb-action
