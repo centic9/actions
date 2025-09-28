@@ -4,6 +4,7 @@ Currently the following workflows are provided:
 
 * [gradle-build](https://github.com/centic9/actions/blob/main/.github/workflows/gradle-build.yml) - Build and test a Gradle-based project
 * [maven-build](https://github.com/centic9/actions/blob/main/.github/workflows/maven-build.yml) - Build and test a Maven-based project
+* For `debian-package-debcraft.yml` see the dedicated repository [debian-packages](https://github.com/centic9/debian-packages/)
 
 See below for details.
 
