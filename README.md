@@ -2,6 +2,11 @@ This is a repository of reusable Github workflows
 
 Currently the following workflows are provided:
 
+* [gradle-build](https://github.com/centic9/actions/blob/main/.github/workflows/gradle-build.yml) - Build and test a Gradle-based project
+* [maven-build](https://github.com/centic9/actions/blob/main/.github/workflows/maven-build.yml) - Build and test a Maven-based project
+
+See below for details.
+
 # Used actions
 
 The following actions are used currently
