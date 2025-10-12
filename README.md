@@ -19,7 +19,11 @@ The following actions are used currently
 
 # Necessary permissions
 
-See [EnricoMi/publish-unit-test-result-action/#permissions](https://github.com/EnricoMi/publish-unit-test-result-action/?tab=readme-ov-file#permissions)
+In order to allow publishing of test-results, you need to go to "Project Settings -> Actions -> General -> Workflow permissions" 
+and enable "Read and write permissions".
+
+See also [EnricoMi/publish-unit-test-result-action/#permissions](https://github.com/EnricoMi/publish-unit-test-result-action/?tab=readme-ov-file#permissions)
+
 
 # gradle-build.yml
 
