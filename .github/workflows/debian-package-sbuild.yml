@@ -16,7 +16,7 @@ jobs:
         #arch: [amd64]
     steps:
       - name: checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: install sbuild
         # piuparts
