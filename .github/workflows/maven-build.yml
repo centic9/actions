@@ -33,7 +33,7 @@ jobs:
       # https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
       fail-fast: false
       matrix:
-        jdk: [17, 21]
+        jdk: [21, 25]
     steps:
       - name: Checkout
         if: ${{ !inputs.fullCheckout }}
