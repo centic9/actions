@@ -20,7 +20,7 @@ jobs:
 
       - name: build
         # https://github.com/jtdor/build-deb-action
-        uses: jtdor/build-deb-action@v1
+        uses: jtdor/build-deb-action@473136f14a42a231124c1f7cefaedfe941203c38 # v1.9.1
         env:
           DEB_BUILD_OPTIONS: noautodbgsym
         with:
